@@ -58,8 +58,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Total numbers
         const totalCells = rows * cols;
-        const numbers = Array.from({ length: totalCells }, (_, i) => i + 1);
-        const shuffledNumbers = shuffleArray(numbers);
+        
+        // Hardcoded numbers as requested by the client
+        const clientNumbers = [
+            43, 8, 91, 27, 64, 13, 76, 52, 38, 85,
+            2, 69, 19, 97, 50, 31, 88, 14, 57, 73,
+            9, 82, 34, 61, 25, 99, 46, 70, 5, 54,
+            80, 11, 63, 40, 95, 22, 78, 17, 86, 3,
+            51, 92, 30, 67, 12, 75, 44, 89, 58, 20,
+            96, 35, 71, 6, 83, 24, 49, 62, 15, 74,
+            98, 41, 55, 87, 29, 66, 1, 37, 81, 53,
+            94, 16, 79, 33, 60, 21, 47, 84, 10, 72,
+            45, 90, 26, 59, 4, 36, 68, 93, 18, 77,
+            56, 23, 85, 32, 48, 65, 28, 100, 39, 42
+        ];
+
+        let shuffledNumbers = clientNumbers.slice(0, totalCells);
+        
+        // If they request more than 100 cells, fill the rest sequentially
+        if (totalCells > clientNumbers.length) {
+            const extraNumbers = Array.from({ length: totalCells - clientNumbers.length }, (_, i) => i + 101);
+            shuffledNumbers = [...shuffledNumbers, ...extraNumbers];
+        }
 
         // Letters for column headers
         const colLetters = getLetters(cols);
