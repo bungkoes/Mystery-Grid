@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mystery Grid Reveal</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Setup Page -->
+        <section id="setup-page" class="page active">
+            <div class="glass-card">
+                <h1>Game Setup</h1>
+                <p>Enter grid dimensions to start the game.</p>
+                <form id="setup-form">
+                    <div class="input-group">
+                        <label for="rows">Rows</label>
+                        <input type="number" id="rows" name="rows" min="1" max="100" value="10" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="cols">Columns</label>
+                        <input type="number" id="cols" name="cols" min="1" max="50" value="10" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Start Game</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Game Page -->
+        <section id="game-page" class="page">
+            <header>
+                <h2>Mystery Grid</h2>
+                <button id="btn-back" class="btn-secondary">New Game</button>
+            </header>
+            <div class="grid-container-wrapper">
+                <div id="grid-container"></div>
+            </div>
+        </section>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
