@@ -142,13 +142,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setupForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const rows = parseInt(document.getElementById('rows').value);
-        const cols = parseInt(document.getElementById('cols').value);
+        // Fixed 10x10 grid for the client
+        const rows = 10;
+        const cols = 10;
         
-        if (rows > 0 && cols > 0) {
-            createGrid(rows, cols);
-            showPage(gamePage);
-        }
+        createGrid(rows, cols);
+        showPage(gamePage);
     });
 
     btnBack.addEventListener('click', () => {
