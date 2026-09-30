@@ -1,36 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mystery Grid Reveal</title>
+    <title>Wedding Mystery Game - 6 Mystery Squares</title>
+    <meta name="description" content="Wedding Mystery Game dengan 6 Kotak Hadiah Spesial untuk Pengantin & Tamu">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Background Sparkles Container -->
+    <div id="stars-container" aria-hidden="true"></div>
+    <canvas id="confetti-canvas"></canvas>
+
     <div id="app">
-        <!-- Setup Page -->
+        <!-- Setup / Welcome Page -->
         <section id="setup-page" class="page active">
-            <div class="glass-card">
-                <h1>Game Setup</h1>
-                <p>Click start to reveal the mystery grid.</p>
-                <form id="setup-form">
-                    <button type="submit" class="btn-primary">Start Game</button>
-                </form>
+            <div class="glass-card setup-card">
+                <div class="wedding-rings-icon">💍</div>
+                <h1 class="wedding-title">Mystery Wedding Game</h1>
+                <p class="wedding-subtitle">Pilih salah satu dari 6 kotak misterius untuk mengungkap hadiah spesial!</p>
+
+                <div class="prizes-preview-box">
+                    <span class="preview-badge">✨ 6 Hadiah Spesial ✨</span>
+                    <ul class="preview-list">
+                        <li><span>✈️</span> TRIP KE DUBAI</li>
+                        <li><span>🏛️</span> TRIP KE ITALY</li>
+                        <li><span>🌸</span> TRIP KE KOREA</li>
+                        <li><span>🏔️</span> TRIP KE SWISS</li>
+                        <li><span>🍷</span> DINNER ROMANTIS</li>
+                        <li><span>💇‍♀️</span> HAIR TREATMENT</li>
+                    </ul>
+                </div>
+
+                <div class="setup-actions">
+                    <button id="btn-start" class="btn-primary btn-glow">
+                        <span class="btn-icon">✨</span> MULAI PERMAINAN
+                    </button>
+                </div>
             </div>
         </section>
 
-        <!-- Game Page -->
+        <!-- Main Game Page -->
         <section id="game-page" class="page">
-            <header>
-                <h2>Mystery Grid</h2>
-                <button id="btn-back" class="btn-secondary">New Game</button>
+            <header class="game-header">
+                <div class="header-titles">
+                    <span class="header-badge">💍 WEDDING MYSTERY BOX 💍</span>
+                    <h2>Pilih Kotak Keberuntungan</h2>
+                    <p>Klik kotak untuk mengungkap hadiah di dalamnya!</p>
+                </div>
+
+                <div class="header-controls">
+                    <button id="btn-sound" class="btn-control" title="Toggle Sound">
+                        <span id="sound-icon">🔊</span>
+                    </button>
+                    <button id="btn-shuffle" class="btn-control" title="Acak Posisi Hadiah">
+                        <span>🔀 Acak Kotak</span>
+                    </button>
+                    <button id="btn-reveal-all" class="btn-control" title="Buka Semua Kotak">
+                        <span>👁️ Buka Semua</span>
+                    </button>
+                    <button id="btn-back" class="btn-secondary" title="Kembali ke Menu Awal">
+                        <span>🏠 Menu Awal</span>
+                    </button>
+                </div>
             </header>
-            <div class="grid-container-wrapper">
-                <div id="grid-container"></div>
+
+            <!-- 6 Mystery Squares Grid -->
+            <div class="grid-wrapper">
+                <div id="grid-container" class="grid-6">
+                    <!-- Cards 1 to 6 will be generated dynamically -->
+                </div>
             </div>
+
+            <!-- Footer Status -->
+            <footer class="game-footer">
+                <span id="game-status-text">Semua kotak masih tersembunyi. Silakan pilih salah satu!</span>
+            </footer>
         </section>
     </div>
+
+    <!-- Celebration Winner Modal -->
+    <div id="winner-modal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-sparkles">✨ 🎉 ✨</div>
+            <span class="modal-tag">KOTAK TERBUKA!</span>
+            <div id="modal-box-number" class="modal-box-num">KOTAK #1</div>
+            <div id="modal-prize-icon" class="modal-prize-icon">✈️</div>
+            <h3 id="modal-prize-title" class="modal-prize-title">TRIP KE DUBAI</h3>
+            <p id="modal-prize-desc" class="modal-prize-desc">Hadiah spesial untuk perjalanan penuh kenangan manis!</p>
+            
+            <div class="modal-buttons">
+                <button id="btn-close-modal" class="btn-primary">Lanjutkan Permainan</button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
