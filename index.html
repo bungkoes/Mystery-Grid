@@ -24,20 +24,24 @@
                 <p class="wedding-subtitle">Pilih salah satu dari 6 kotak misterius untuk mengungkap hadiah spesial!</p>
 
                 <div class="prizes-preview-box">
-                    <span class="preview-badge">✨ 6 Hadiah Spesial ✨</span>
-                    <ul class="preview-list">
-                        <li><span>✈️</span> TRIP KE DUBAI</li>
-                        <li><span>🏛️</span> TRIP KE ITALY</li>
-                        <li><span>🌸</span> TRIP KE KOREA</li>
-                        <li><span>🏔️</span> TRIP KE SWISS</li>
-                        <li><span>🍷</span> DINNER ROMANTIS</li>
-                        <li><span>💇‍♀️</span> HAIR TREATMENT</li>
+                    <div class="preview-box-header">
+                        <span class="preview-badge">✨ 6 Hadiah Spesial ✨</span>
+                        <button id="btn-edit-preview" class="btn-badge-edit" type="button" title="Kustomisasi Hadiah">
+                            <span>✏️</span> Edit Hadiah
+                        </button>
+                    </div>
+                    <ul id="preview-list" class="preview-list">
+                        <!-- Populated dynamically via script.js -->
                     </ul>
+                    <div class="preview-hint">💡 Klik hadiah atau tombol edit untuk mengubah nama & emoji hadiah</div>
                 </div>
 
                 <div class="setup-actions">
                     <button id="btn-start" class="btn-primary btn-glow">
                         <span class="btn-icon">✨</span> MULAI PERMAINAN
+                    </button>
+                    <button id="btn-open-editor" class="btn-secondary btn-glow-subtle" type="button">
+                        <span class="btn-icon">✏️</span> KUSTOMISASI HADIAH
                     </button>
                 </div>
             </div>
@@ -55,6 +59,9 @@
                 <div class="header-controls">
                     <button id="btn-sound" class="btn-control" title="Toggle Sound">
                         <span id="sound-icon">🔊</span>
+                    </button>
+                    <button id="btn-edit-prizes-game" class="btn-control" title="Kustomisasi Hadiah">
+                        <span>✏️ Edit Hadiah</span>
                     </button>
                     <button id="btn-shuffle" class="btn-control" title="Acak Posisi Hadiah">
                         <span>🔀 Acak Kotak</span>
@@ -97,6 +104,54 @@
             </div>
         </div>
     </div>
+
+    <!-- Edit Prizes Modal -->
+    <div id="edit-prizes-modal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="edit-modal-title">
+        <div class="modal-card edit-modal-card">
+            <div class="edit-modal-header">
+                <div>
+                    <span class="modal-tag">PENGATURAN HADIAH</span>
+                    <h2 id="edit-modal-title" class="edit-modal-title">✏️ Kustomisasi 6 Hadiah</h2>
+                    <p class="edit-modal-subtitle">Ubah hadiah agar sesuai dengan tema pernikahan atau games Anda</p>
+                </div>
+                <button id="btn-close-edit-modal-x" class="btn-close-icon" type="button" aria-label="Tutup Modal">&times;</button>
+            </div>
+
+            <!-- Preset Quick Templates -->
+            <div class="presets-bar">
+                <span class="presets-label">⚡ Template Cepat:</span>
+                <div class="presets-buttons">
+                    <button type="button" class="btn-preset active" data-preset="wedding">👑 Honeymoon Mewah</button>
+                    <button type="button" class="btn-preset" data-preset="gadget">📱 Gadget & Tech</button>
+                    <button type="button" class="btn-preset" data-preset="gold">💰 Emas & Belanja</button>
+                </div>
+            </div>
+
+            <!-- Scrollable Editor Form -->
+            <form id="edit-prizes-form" class="edit-prizes-form">
+                <div id="prizes-editor-grid" class="prizes-editor-grid">
+                    <!-- 6 prize editor cards generated dynamically -->
+                </div>
+
+                <div class="edit-modal-actions">
+                    <button type="button" id="btn-reset-prizes" class="btn-secondary btn-danger-soft">
+                        🔄 Reset Default
+                    </button>
+                    <div class="edit-actions-right">
+                        <button type="button" id="btn-cancel-edit" class="btn-secondary">
+                            Batal
+                        </button>
+                        <button type="submit" id="btn-save-prizes" class="btn-primary">
+                            💾 Simpan Hadiah
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
     <script src="script.js"></script>
 </body>
