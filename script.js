@@ -2,28 +2,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 6 Default Wedding Prizes ---
     const DEFAULT_PRIZES = [
         {
-            id: 'dubai',
-            name: 'TRIP KE DUBAI',
-            tag: 'LUXURY GETAWAY',
-            icon: '✈️',
-            desc: 'Nikmati kemewahan liburan impian tak terlupakan di Dubai!',
-            theme: 'theme-dubai'
-        },
-        {
-            id: 'italy',
-            name: 'TRIP KE ITALY',
-            tag: 'ROMANTIC ESCAPE',
-            icon: '🏛️',
-            desc: 'Wisata romantis menyusuri kanal dan kota bersejarah di Italia!',
-            theme: 'theme-italy'
-        },
-        {
             id: 'korea',
             name: 'TRIP KE KOREA',
             tag: 'K-CULTURE TOUR',
             icon: '🌸',
             desc: 'Jelajahi keindahan sakura dan pesona romantis di Korea Selatan!',
             theme: 'theme-korea'
+        },
+        {
+            id: 'jerman',
+            name: 'TRIP KE JERMAN',
+            tag: 'EUROPEAN WONDER',
+            icon: '🏰',
+            desc: 'Petualangan memukau menyusuri kastil megah dan kota bersejarah di Jerman!',
+            theme: 'theme-dubai'
         },
         {
             id: 'swiss',
@@ -34,11 +26,19 @@ document.addEventListener('DOMContentLoaded', () => {
             theme: 'theme-swiss'
         },
         {
-            id: 'dinner',
-            name: 'DINNER ROMANTIS',
-            tag: 'SPECIAL DATE',
-            icon: '🍷',
-            desc: 'Makan malam eksklusif berdua dengan suasana penuh kehangatan cinta!',
+            id: 'uk',
+            name: 'TRIP KE UK',
+            tag: 'ROYAL HERITAGE',
+            icon: '🇬🇧',
+            desc: 'Jelajahi pesona klasik London dan keindahan bersejarah di United Kingdom!',
+            theme: 'theme-italy'
+        },
+        {
+            id: 'staycation',
+            name: 'STAYCATION',
+            tag: 'LUXURY GETAWAY',
+            icon: '🏨',
+            desc: 'Waktu santai berkualitas di hotel & resort mewah dengan fasilitas eksklusif!',
             theme: 'theme-dinner'
         },
         {
@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const QUICK_EMOJIS = ['🎁', '✈️', '💍', '📱', '🥇', '💵', '🏨', '🏖️', '🚗', '🛵', '🛍️', '🍷', '☕', '🎮', '⌚', '🎧'];
 
-    const STORAGE_KEY = 'wedding_game_prizes_v1';
+    const STORAGE_KEY = 'wedding_game_prizes_v2';
 
     // --- Local Storage Management ---
     function loadSavedPrizes() {
@@ -477,7 +477,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="field-group">
                         <label class="field-label" for="prize-name-${idx}">Nama Hadiah *</label>
                         <input type="text" id="prize-name-${idx}" class="field-input input-prize-name" 
-                               value="${prize.name}" placeholder="Contoh: TRIP KE DUBAI" required>
+                               value="${prize.name}" placeholder="Contoh: TRIP KE KOREA" required>
                     </div>
                 </div>
 
@@ -624,7 +624,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnResetPrizes.addEventListener('click', () => {
         initAudio();
         playSound('click');
-        if (confirm('Kembalikan 6 hadiah ke daftar awal pernikahan (Trip ke Dubai, Italy, dll)?')) {
+        if (confirm('Kembalikan 6 hadiah ke daftar awal pernikahan (Trip ke Korea, Jerman, dll)?')) {
             currentPrizes = JSON.parse(JSON.stringify(DEFAULT_PRIZES));
             activePrizes = [...currentPrizes];
             savePrizesToStorage(currentPrizes);
