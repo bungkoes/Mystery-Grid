@@ -167,7 +167,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const QUICK_EMOJIS = ['🎁', '✈️', '💍', '📱', '🥇', '💵', '🏨', '🏖️', '🚗', '🛵', '🛍️', '🍷', '☕', '🎮', '⌚', '🎧'];
 
-    const STORAGE_KEY = 'wedding_game_prizes_v3';
+    // Bersihkan cache lama agar urutan hadiah 1-6 selalu terjamin dan tidak tertukar
+    ['wedding_game_prizes_v1', 'wedding_game_prizes_v2', 'wedding_game_prizes_v3'].forEach(k => {
+        try { localStorage.removeItem(k); } catch (e) {}
+    });
+
+    const STORAGE_KEY = 'wedding_game_prizes_fixed_v4';
 
     // --- Local Storage Management ---
     function loadSavedPrizes() {
@@ -195,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // State
     let currentPrizes = loadSavedPrizes();
-    let activePrizes = [...currentPrizes];
+    let activePrizes = JSON.parse(JSON.stringify(currentPrizes));
     let isSoundEnabled = true;
     let audioCtx = null;
 
@@ -204,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const gamePage = document.getElementById('game-page');
     const btnStart = document.getElementById('btn-start');
     const btnBack = document.getElementById('btn-back');
-    const btnShuffle = document.getElementById('btn-shuffle');
+    const btnResetBoxes = document.getElementById('btn-reset-boxes') || document.getElementById('btn-shuffle');
     const btnRevealAll = document.getElementById('btn-reveal-all');
     const btnSound = document.getElementById('btn-sound');
     const soundIcon = document.getElementById('sound-icon');
@@ -405,16 +410,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     generateStars();
 
-    // --- Shuffle Function (Fisher-Yates) ---
-    function shufflePrizes(array) {
-        const copy = [...array];
-        for (let i = copy.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [copy[i], copy[j]] = [copy[j], copy[i]];
-        }
-        return copy;
-    }
-
     // --- Render Welcome Page Preview List ---
     function renderPreviewList() {
         if (!previewList) return;
@@ -428,6 +423,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             li.innerHTML = `
                 <div class="preview-list-content">
+                    <span class="preview-num-badge">Kotak #${index + 1}</span>
                     <span class="prize-emoji">${prize.icon || '🎁'}</span>
                     <span class="prize-text">${prize.name}</span>
                 </div>
@@ -779,8 +775,8 @@ document.addEventListener('DOMContentLoaded', () => {
     btnStart.addEventListener('click', () => {
         initAudio();
         playSound('click');
-        // Selalu sesuai urutan (1 sampai 6), tidak diacak
-        activePrizes = [...currentPrizes];
+        // Hadiah selalu persis sesuai urutan nomor kotaknya (1-6), tanpa pengacakan sama sekali
+        activePrizes = JSON.parse(JSON.stringify(currentPrizes));
         renderGrid();
         showPage(gamePage);
     });
@@ -790,19 +786,21 @@ document.addEventListener('DOMContentLoaded', () => {
         showPage(setupPage);
     });
 
-    btnShuffle.addEventListener('click', () => {
-        initAudio();
-        playSound('click');
-        const cards = document.querySelectorAll('.grid-card');
-        cards.forEach(c => c.classList.remove('revealed'));
+    if (btnResetBoxes) {
+        btnResetBoxes.addEventListener('click', () => {
+            initAudio();
+            playSound('click');
+            const cards = document.querySelectorAll('.grid-card');
+            cards.forEach(c => c.classList.remove('revealed'));
 
-        setTimeout(() => {
-            // Tutup dan kembalikan kotak sesuai urutan (1 sampai 6) tanpa diacak
-            activePrizes = [...currentPrizes];
-            renderGrid();
-            gameStatusText.textContent = 'Semua kotak telah ditutup dan diurutkan kembali (1-6).';
-        }, 350);
-    });
+            setTimeout(() => {
+                // Selalu tepat sesuai nomor kotaknya (Kotak 1-6)
+                activePrizes = JSON.parse(JSON.stringify(currentPrizes));
+                renderGrid();
+                gameStatusText.textContent = 'Semua kotak telah ditutup dan tetap sesuai nomor kotaknya (1-6).';
+            }, 350);
+        });
+    }
 
     btnRevealAll.addEventListener('click', () => {
         initAudio();
