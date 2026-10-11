@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const QUICK_EMOJIS = ['🎁', '✈️', '💍', '📱', '🥇', '💵', '🏨', '🏖️', '🚗', '🛵', '🛍️', '🍷', '☕', '🎮', '⌚', '🎧'];
 
-    const STORAGE_KEY = 'wedding_game_prizes_v2';
+    const STORAGE_KEY = 'wedding_game_prizes_v3';
 
     // --- Local Storage Management ---
     function loadSavedPrizes() {
@@ -779,8 +779,8 @@ document.addEventListener('DOMContentLoaded', () => {
     btnStart.addEventListener('click', () => {
         initAudio();
         playSound('click');
-        // Shuffle current prizes when starting game
-        activePrizes = shufflePrizes(currentPrizes);
+        // Selalu sesuai urutan (1 sampai 6), tidak diacak
+        activePrizes = [...currentPrizes];
         renderGrid();
         showPage(gamePage);
     });
@@ -797,9 +797,10 @@ document.addEventListener('DOMContentLoaded', () => {
         cards.forEach(c => c.classList.remove('revealed'));
 
         setTimeout(() => {
-            activePrizes = shufflePrizes(currentPrizes);
+            // Tutup dan kembalikan kotak sesuai urutan (1 sampai 6) tanpa diacak
+            activePrizes = [...currentPrizes];
             renderGrid();
-            gameStatusText.textContent = '🔀 Posisi hadiah berhasil diacak kembali!';
+            gameStatusText.textContent = 'Semua kotak telah ditutup dan diurutkan kembali (1-6).';
         }, 350);
     });
 
