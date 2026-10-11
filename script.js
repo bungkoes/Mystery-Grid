@@ -423,7 +423,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             li.innerHTML = `
                 <div class="preview-list-content">
-                    <span class="preview-num-badge">Kotak #${index + 1}</span>
                     <span class="prize-emoji">${prize.icon || '🎁'}</span>
                     <span class="prize-text">${prize.name}</span>
                 </div>
